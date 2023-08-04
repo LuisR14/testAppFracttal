@@ -2,6 +2,8 @@ APP MOVIL (SPA) RETO PARA LA EMPRESA FRACTTAL
 
 Usando el framework React Native (multiplataforma) , se desarrollo una app movil para android & iOS
 
+Recuerde instalar los node_modules con un npm install o yarn 
+
 
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
