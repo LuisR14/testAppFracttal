@@ -1,72 +1,81 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
-  Alert,
+  ActivityIndicator,
+  BackHandler,
   Platform,
+  SafeAreaView,
   StatusBar,
   Text,
   TouchableOpacity,
-  View,
 } from 'react-native';
-import LocalAuthentication from 'rn-local-authentication';
 import styles from './styles';
 import colors from '../../themes/colors';
 import FingerprintImage from '../../assets/fingerprint.svg';
 import FaceIdImage from '../../assets/faceID.svg';
+import {Verification} from '../../functions/verification';
+import {backAction} from '../../functions/backHandler';
+import {sessionVerify} from '../../functions/sessionVerify';
+import {ImageView} from '../../components/imageView';
+import {CheckPermissions} from '../../functions/checkPermission';
 
 export const Home = () => {
-  //   useEffect(() => {
-  //     Verification();
-  //   }, []);
+  const [sessionCheck, setSessionCheck] = useState(false);
+  const [isLoading, setisLoading] = useState(true);
+  useEffect((): (() => void) => {
+    BackHandler.addEventListener('hardwareBackPress', backAction);
+    return (): void => {
+      BackHandler.removeEventListener('hardwareBackPress', backAction);
+    };
+  }, []);
 
-  const Verification = async () => {
-    try {
-      const response = await LocalAuthentication.authenticateAsync({
-        reason: 'inicio de sesion',
-        title: 'Verificacion Fracttal',
-        cancelTitle: 'Cancelar',
-        fallbackEnabled: true,
-        fallbackToPinCodeAction: true,
-      });
-      if (
-        response.error === 'UserCancel' ||
-        response.error === 'UserFallback'
-      ) {
-        Alert.alert('Error', 'Autenticacion cancelada');
-      } else if (response.error === 'BiometryNotEnrolled') {
-        Alert.alert('Error', 'Su dispositivo no cuenta con sensor biometrico');
-      } else if (response.error === 'PasscodeNotSet') {
-        Alert.alert(
-          'Error',
-          'Su dispositivo no tiene ningun metodo de autenticacion configurado',
-        );
-      } else if (response.success) {
-        Alert.alert('Usuario autenticado');
-      }
-    } catch (error: any) {
-      Alert.alert(error);
+  useEffect(() => {
+    CheckPermissions();
+    checkSession();
+  }, []);
+
+  const checkSession = async () => {
+    const session = await sessionVerify();
+    if (session) {
+      setSessionCheck(true);
+    } else {
+      setSessionCheck(false);
     }
+    setisLoading(false);
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor={colors.black} />
-      <Text style={styles.loginText}>Login</Text>
-      {Platform.OS === 'android' ? (
+      {sessionCheck && !isLoading ? (
+        <ImageView setSessionCheck={setSessionCheck} />
+      ) : !isLoading ? (
         <>
-          <Text style={styles.textSubtitle}>
-            Autenticar con tu huella dactilar
-          </Text>
-          <FingerprintImage height={120} />
+          <Text style={styles.loginText}>Login</Text>
+          {Platform.OS === 'android' ? (
+            <>
+              <Text style={styles.textSubtitle}>
+                Autenticar con tu huella dactilar
+              </Text>
+              <FingerprintImage height={120} />
+            </>
+          ) : (
+            <>
+              <Text style={styles.textSubtitle}>Autenticar con Face ID</Text>
+              <FaceIdImage height={120} />
+            </>
+          )}
+          <TouchableOpacity
+            style={styles.buttonAuth}
+            onPress={async () => {
+              await Verification();
+              await checkSession();
+            }}>
+            <Text style={styles.textButton}>Autenticar</Text>
+          </TouchableOpacity>
         </>
       ) : (
-        <>
-          <Text style={styles.textSubtitle}>Autenticar con Face ID</Text>
-          <FaceIdImage height={120} />
-        </>
+        <ActivityIndicator size={40} />
       )}
-      <TouchableOpacity style={styles.buttonAuth} onPress={Verification}>
-        <Text style={styles.textButton}>Autenticar</Text>
-      </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 };

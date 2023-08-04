@@ -35,8 +35,10 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Necesitamos permiso a tu galeria para acceder a las imagenes</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Necesitamos permiso a tu camara para poder tomar fotos</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Necesitamos el reconocimiento facial para autenticar al usuario</string>
 	<key>UILaunchStoryboardName</key>

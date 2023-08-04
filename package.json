@@ -10,8 +10,13 @@
     "test": "jest"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.19.1",
     "react": "18.2.0",
     "react-native": "0.72.3",
+    "react-native-fast-image": "^8.6.3",
+    "react-native-image-picker": "^5.6.0",
+    "react-native-image-viewing": "^0.2.2",
+    "react-native-permissions": "^3.8.4",
     "react-native-svg": "^13.10.0",
     "react-native-svg-transformer": "^1.1.0",
     "rn-local-authentication": "^1.2.5"
@@ -33,6 +38,13 @@
     "react-test-renderer": "18.2.0",
     "typescript": "4.8.4"
   },
+  "reactNativePermissionsIOS": [
+    "Camera",
+    "FaceID",
+    "MediaLibrary",
+    "PhotoLibrary",
+    "PhotoLibraryAddOnly"
+  ],
   "engines": {
     "node": ">=16"
   }

@@ -1,19 +1,24 @@
-import {Platform, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {dimension} from '../../themes/dimension';
 import colors from '../../themes/colors';
-const {verticalScale, moderateScale} = dimension();
+const {verticalScale, horizontalScale, moderateScale} = dimension();
 
 export default StyleSheet.create({
   container: {
-    backgroundColor: colors.backgroundPrimary,
     flex: 1,
     alignItems: 'center',
+    paddingTop: 20,
   },
-  loginText: {
-    marginTop: verticalScale(150),
-    fontSize: Platform.OS === 'android' ? 45 : 50,
-    color: colors.white,
-    fontFamily: Platform.OS === 'android' ? 'serif' : 'Baskerville-SemiBold',
+  image: {
+    height: verticalScale(400),
+    width: horizontalScale(300),
+  },
+  imageContainer: {
+    borderRadius: 5,
+    borderColor: colors.imageContainer,
+    borderWidth: 1,
+    padding: 20,
+    marginBottom: 10,
   },
   textButton: {
     fontWeight: 'bold',
@@ -28,12 +33,21 @@ export default StyleSheet.create({
     color: colors.textSubtitle,
   },
   buttonAuth: {
-    marginTop: verticalScale(100),
+    marginTop: verticalScale(50),
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
     width: moderateScale(300),
     height: moderateScale(50),
     backgroundColor: colors.buttonAuth,
+  },
+  buttonChangeImage: {
+    marginTop: verticalScale(10),
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    width: moderateScale(200),
+    height: moderateScale(30),
+    backgroundColor: colors.black,
   },
 });
