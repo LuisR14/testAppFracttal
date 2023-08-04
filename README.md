@@ -1,3 +1,8 @@
+app movil desarrollada como reto para la empresa Fracttal
+
+Usando el framework React Native (multiplataforma) , se desarrollo una app movil para android & iOS
+
+
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
 # Getting Started
