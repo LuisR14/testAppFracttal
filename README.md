@@ -1,4 +1,4 @@
-app movil desarrollada como reto para la empresa Fracttal
+APP MOVIL (SPA) RETO PARA LA EMPRESA FRACTTAL
 
 Usando el framework React Native (multiplataforma) , se desarrollo una app movil para android & iOS
 
